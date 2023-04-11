@@ -86,7 +86,7 @@ app.post("/tweets/add", (request,response)=>{
     newTweet.videoid = request.body.videoid
     // save newTweet in db
     newTweet.save()
-            .then(()=>{
+            .then((data)=>{
                 response.json(data)
             })
             .catch((error)=>{
@@ -94,6 +94,18 @@ app.post("/tweets/add", (request,response)=>{
             })
         })
 
+// get tweet by id (id is dynamic)
+app.get("/tweets/:id", (request,response)=>{
+    console.log("get tweet by id")
+    console.log(request.params.id)
+    tweet.findById(request.params.id)
+            .then((data)=>{
+                response.json(data)
+            })
+            .catch((error)=>{
+                response.json(error)
+            })
+})
 
 // define a port for API to run
 let PORT = 8887
