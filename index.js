@@ -107,6 +107,21 @@ app.get("/tweets/:id", (request,response)=>{
             })
 })
 
+// delete tweet by id
+app.delete("/tweets/delete/:id", (request,response)=>{
+    console.log("delete tweet by id")
+    console.log(request.params.id)
+    tweet.findByIdAndDelete(request.params.id)
+        .then((data)=>{
+            console.log(data)
+            response.json(data)
+        })
+        .catch((error)=>{
+            console.log(error)
+            response.json(error)
+        })
+})
+
 // define a port for API to run
 let PORT = 8887
 
