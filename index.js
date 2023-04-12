@@ -122,6 +122,31 @@ app.delete("/tweets/delete/:id", (request,response)=>{
         })
 })
 
+// find tweet by id and increase the like
+app.put("/tweets/likes/:id", (request, response)=>{
+    console.log("find tweet by id and increase the like")
+    console.log(request.params.id)
+    // find the tweet by id
+    tweet.findById(request.params.id)
+            .then((data)=>{
+                console.log(data)
+                // response.json(data)
+                // increase likes by 1
+                console.log("updating...")
+                tweet.findByIdAndUpdate(request.params.id, {$set:{"likes": data.likes+1}}, {new: true})
+                            .then((dataU)=>{
+                                console.log(dataU)
+                                response.json(dataU)
+                            })
+                            .catch((error)=>{
+                                response.json(error)
+                            })
+            })
+            .catch((error)=>{
+                response.json(error)
+            })
+})
+
 // define a port for API to run
 let PORT = 8887
 
