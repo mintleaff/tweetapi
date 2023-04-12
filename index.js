@@ -176,6 +176,22 @@ app.put("/tweets/dislikes/:id", (request, response)=>{
 
 })
 
+// find by id and update tweet
+app.put("/tweets/update/:id", (request,response)=>{
+    console.log("find by id and update")
+    console.log(request.params.id)
+    console.log(request.body)
+    // find by id and update
+    tweet.findByIdAndUpdate(request.params.id, {"message": request.body.message}, {new: true})
+                            .then((data)=>{
+                                console.log(data)
+                                response.json(data)
+                            })
+                            .catch((error)=>{
+                                response.json(error)
+                            })
+})
+
 // define a port for API to run
 let PORT = 8887
 
